@@ -5,8 +5,11 @@ require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
 const statusRoutes = require('./routes/status');
+const v0Routes = require("./routes/v0");
 
 app.use(express.json());
+// Serve static frontend
+app.use(express.static('public'));
 
 // Rota raiz para evitar 404 na Vercel
 app.get('/', (req, res) => {
@@ -16,6 +19,7 @@ app.get('/', (req, res) => {
 // Rotas organizadas
 app.use('/api/auth', authRoutes);
 app.use('/api', statusRoutes);
+app.use('/v0', v0Routes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
